@@ -1,0 +1,34 @@
+!_TAG_FILE_FORMAT	2	/extended format; --format=1 will not append ;" to lines/
+!_TAG_FILE_SORTED	1	/0=unsorted, 1=sorted, 2=foldcase/
+!_TAG_PROGRAM_AUTHOR	Darren Hiebert	/dhiebert@users.sourceforge.net/
+!_TAG_PROGRAM_NAME	Exuberant Ctags	//
+!_TAG_PROGRAM_URL	http://ctags.sourceforge.net	/official site/
+!_TAG_PROGRAM_VERSION	5.8	//
+BRANCH	Makefile	/^BRANCH = $$( git rev-parse --abbrev-ref HEAD )$/;"	m
+DIST_DIR	Makefile	/^DIST_DIR = build$/;"	m
+ENV	Makefile	/^ENV = env\\$/;"	m
+ENV_MISC	Makefile	/^ENV_MISC = env\\$/;"	m
+GO.MACRO	Makefile	/^GO.MACRO = $${GO:-go}$/;"	m
+GOAMD64	Makefile	/^GOAMD64 = v1$/;"	m
+GOPROXY	Makefile	/^GOPROXY = https:\/\/proxy.golang.org|direct$/;"	m
+GOTELEMETRY	Makefile	/^GOTELEMETRY = off$/;"	m
+GOTOOLCHAIN	Makefile	/^GOTOOLCHAIN = go1.22.6$/;"	m
+OOS	Makefile	/^	env GOOS='freebsd' "$(GO.MACRO)" vet .\/...$/;"	m
+OOS	Makefile	/^	env GOOS='linux'   "$(GO.MACRO)" vet .\/...$/;"	m
+OOS	Makefile	/^	env GOOS='openbsd' "$(GO.MACRO)" vet .\/...$/;"	m
+OOS	Makefile	/^	env GOOS='windows' "$(GO.MACRO)" vet .\/...$/;"	m
+OUT	Makefile	/^OUT = dnsproxy$/;"	m
+RACE	Makefile	/^RACE = 0$/;"	m
+REVISION	Makefile	/^REVISION = $$( git rev-parse --short HEAD )$/;"	m
+VERBOSE.MACRO	Makefile	/^VERBOSE.MACRO = $${VERBOSE:-0}$/;"	m
+VERSION	Makefile	/^VERSION = 0$/;"	m
+blocklist_imports	scripts/make/go-lint.sh	/^blocklist_imports() {$/;"	f
+build	scripts/make/build-release.sh	/^build() {$/;"	f
+log	scripts/make/build-release.sh	/^log() {$/;"	f
+method_const	scripts/make/go-lint.sh	/^method_const() {$/;"	f
+not_found	scripts/make/helper.sh	/^not_found() {$/;"	f
+prompt	scripts/hooks/pre-commit	/^prompt() {$/;"	f
+run_linter	scripts/make/helper.sh	/^run_linter() ($/;"	f
+trailing_newlines	scripts/make/txt-lint.sh	/^trailing_newlines() ($/;"	f
+trailing_whitespace	scripts/make/txt-lint.sh	/^trailing_whitespace() {$/;"	f
+underscores	scripts/make/go-lint.sh	/^underscores() {$/;"	f
