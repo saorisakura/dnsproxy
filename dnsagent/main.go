@@ -22,6 +22,7 @@ import (
 	"strconv"
 	"strings"
 	"sync"
+	"syscall"
 	"time"
 )
 
@@ -616,11 +617,26 @@ func main() {
 		DefaultDNS: defaultDns,
 		Lock:       &sync.RWMutex{},
 	}
-	l, err := net.ListenUDP("udp", &net.UDPAddr{Port: 53})
+
+	backlogSize := 4096
+	listenConfig := net.ListenConfig{
+		Control: func(network, address string, c syscall.RawConn) error {
+			var err error
+			if err = c.Control(func(fd uintptr) {
+				err = syscall.SetsockoptInt(int(fd), syscall.SOL_SOCKET, syscall.SO_RCVBUF, backlogSize)
+			}); err != nil {
+				return err
+			}
+			return nil
+		},
+	}
+	listener, err := listenConfig.ListenPacket(context.Background(), "udp", ":53")
 	if err != nil {
 		panic(err)
 	}
-	proxy.Listener = l
+	defer listener.Close()
+	// 设置listener backlog
+	proxy.Listener = listener.(*net.UDPConn)
 	defer proxy.Listener.Close()
 
 	restartChan := make(chan error)
