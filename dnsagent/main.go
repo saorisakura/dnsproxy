@@ -457,21 +457,22 @@ func (p *Proxy) replyFromProxy(req *dns.Msg, remoteAddr *net.UDPAddr) *dns.Msg {
 	// upstream
 	//setMetrics(redisConn, "total", "recursion")
 	//setMetrics(redisConn, "recursion", queryDomain)
-	p.IncrSyncMap(p.QueryMetrics, "recursion")
-	p.IncrSyncMap(p.QueryMetrics, queryDomain)
 	for _, upstream := range p.DefaultDNS {
 		if !strings.HasSuffix(upstream, ":53") {
 			upstream = upstream + ":53"
 		}
 		resp, _, err := c.Exchange(req, upstream)
 		if err != nil {
+			p.IncrSyncMap(p.QueryMetrics, "upstream_timeout")
 			logrus.Errorln("exchange: ", err.Error())
 			continue
 		}
+		p.IncrSyncMap(p.QueryMetrics, "recursion")
+		p.IncrSyncMap(p.DomainQueryMetrics, queryDomain)
 		return resp
 	}
 	p.IncrSyncMap(p.DomainQueryMetrics, queryDomain)
-	p.IncrSyncMap(p.IpQueryMetrics, p.Api.AgentIp)
+	p.IncrSyncMap(p.IpQueryMetrics, remoteAddr.IP.String())
 	return nil
 }
 
